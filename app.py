@@ -15,10 +15,18 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+class BackgroundImage(db.Model):
+    url = db.StringProperty()
+
+class Font(db.Model):
+    font = db.StringProperty()
+
 class Post(db.Model):
     image = db.StringProperty()
     created = db.DateTimeProperty(auto_now_add=True)
     quote = db.StringProperty()
+    font = db.ReferenceProperty(Font)
+    background = db.ReferenceProperty(BackgroundImage)
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
