@@ -61,7 +61,7 @@ def addText(text, author, imgurl):
 		y += height0
 		i += 1
 	[widthauthor, height] = font.getsize(author)
-	x = x+width0-widthauthor
+	x = imgwidth-widthauthor
 	draw.text((x-2, y-2), author, (0,0,0), font=font)
 	draw.text((x+2, y-2), author, (0,0,0), font=font)
 	draw.text((x-2, y+2), author, (0,0,0), font=font)
