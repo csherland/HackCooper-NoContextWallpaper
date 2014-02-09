@@ -69,7 +69,7 @@ def addText(text, author, imgurl):
 	
 	output = cStringIO.StringIO()
 	img.save(output, "PNG")
-	img = output.getvalue()
+	img = str(output.getvalue())
 	output.close()
 
 	return img
