@@ -114,9 +114,14 @@ class RandomPost(webapp2.RequestHandler):
         # get random quote
         max_qu = db.GqlQuery('SELECT rand_int FROM Quote ORDER BY rand_int DESC LIMIT 1').get().rand_int
         rand_int = random.randint(1,max_qu)
-        rand_qu = db.GqlQuery('SELECT * FROM Quote WHERE rand_int=%s' % rand_int).get
+        rand_qu = db.GqlQuery('SELECT * FROM Quote WHERE rand_int=%s' % rand_int).get()
         quote = rand_qu.quote
         author = rand_qu.author
+
+        #logging.error(max_qu)
+        #logging.error(rand_qu)
+        #logging.error(quote)
+        #logging.error(author)
 
         # get random background
         max_bg = db.GqlQuery('SELECT rand_int FROM BackgroundImage ORDER BY rand_int DESC LIMIT 1').get().rand_int
@@ -124,7 +129,7 @@ class RandomPost(webapp2.RequestHandler):
         bg_url = db.GqlQuery('SELECT * FROM BackgroundImage WHERE rand_int=%s' % rand_int).get().url
 
         # overlay text
-        img_out = addText(quote, author, bg_url)
+        # img_out = addText(quote, author, bg_url)
         #img_out = '01'
 
         # save in datastore / blobstore
