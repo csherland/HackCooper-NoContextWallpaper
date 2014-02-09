@@ -34,7 +34,10 @@ def addText(text, author, imgurl):
 	i=0
 	x=0
 	y=0
+	width0=0
+	logging.err(text)
 	for line in lines:
+		logging.err(line)
 		if i == 0:
 			[width0,height0]=font.getsize(line)
 			[imgwidth,imgheight] = img.size
