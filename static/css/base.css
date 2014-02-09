@@ -5,10 +5,12 @@
 body {
     min-width: 960px;
     background-color: #191917;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 #logo-text {
     color: white;
+    font-size: 20pt;
 }
 
 

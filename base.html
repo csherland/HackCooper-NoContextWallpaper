@@ -5,6 +5,7 @@
         <title>No Context</title>
 
         <!-- Stylesheets -->
+        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="static/css/base.css">
 
@@ -37,7 +38,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a id="logo-text" class="navbar-brand" href="/">No Context</a>
+                    <a id="logo-text" class="navbar-brand" href="/">NoContext</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -59,7 +60,7 @@
             <div class="insertPost"></div>
             {% for key in keys %}
             <div class="post">
-                <a href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1">< class="postImg" src="/view?key={{key}}"></a><br>
+                <a href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1"><img class="postImg" src="/view?key={{key}}"></a><br>
                 <ul>
                     <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
                     <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-via="csherland">Tweet</a></li>
