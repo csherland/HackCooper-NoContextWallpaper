@@ -14,6 +14,7 @@ body {
 
 .navbar-default {
     background-color: #2F2F2F;
+    border-bottom: 5px solid #464644;
 }
 
 .post {
@@ -35,6 +36,15 @@ body {
 
 #modalheader {
     background-color: #2F2F2F;
+    border-bottom: 5px solid #464644;
+}
+
+#modalheader h4 {
+    font-style: normal;
+}
+
+#modalbody {
+    color: black;
 }
 
 #modalfooter {
@@ -46,7 +56,15 @@ body {
     color: white;
 }
 
+.post {
+    border:2px solid;
+    border-radius:10px;
+}
+
 .postImg {
+    border:2px solid;
+    border-radius:10px;
+    width: 80%;
     display: block;
     margin:auto;
 }
@@ -65,4 +83,3 @@ body {
     margin:0 5px 0 0 !important;
     border:none;
 }
-

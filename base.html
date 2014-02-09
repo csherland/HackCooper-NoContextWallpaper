@@ -44,7 +44,7 @@
         <div class="container"> 
             <!-- Post view -->
             <div class="post"> 
-                <img class="postImg" src="static/img/test.png"><br>
+                <img class="postImg" src="static/img/sample-out.png"><br>
                 <ul>
                     <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
                     <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/" data-via="csherland">Tweet</a></li>
@@ -71,7 +71,7 @@
                     </div>
 
                     <div id="modalfooter" class="modal-footer">
-                        <a href="{{upload_url}}"><button type="button" class="btn btn-primary">Post</button></a>
+                        <a href="{{upload_url}}"><button id="submitPost" type="button" class="btn btn-primary" onclick="return newPost()">Post</button></a>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,14 @@
     }(document, 'script', 'facebook-jssdk'));</script>
 
     <!-- TWITTER TWEET BUTTON -->
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>   
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  
+
+    <!-- Make new post -->
+    <script>
+        $('#submitPost').click(function() {
+            $('#myModal').modal('hide');
+        }); 
+    </script>
 
 </html>
 {% endautoescape %}
