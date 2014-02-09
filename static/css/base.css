@@ -43,9 +43,6 @@ body {
     font-style: normal;
 }
 
-#modalbody {
-    color: black;
-}
 
 #modalfooter {
     background-color: #2F2F2F;
@@ -53,7 +50,7 @@ body {
 
 #modalbody {
     background-color: #191917;
-    color: white;
+    color: gray;
 }
 
 .post {
