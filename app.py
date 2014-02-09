@@ -39,10 +39,10 @@ class Post(db.Model):
     image = db.BlobProperty()
     #image = db.StringProperty()
     created = db.DateTimeProperty(auto_now_add=True)
-    quote = db.StringProperty()
+    quote = db.StringProperty(multiline=True)
     #font = db.ReferenceProperty(Font)
     #background = db.ReferenceProperty(BackgroundImage)
-    author = db.StringProperty()
+    author = db.StringProperty(multiline=True)
 
 class Quote(db.Model):
     quote = db.StringProperty(multiline=True)
