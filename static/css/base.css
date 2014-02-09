@@ -29,6 +29,10 @@ body {
     color: white;
 }
 
+.modal-backdrop {
+    background: none;
+}
+
 #modalheader {
     background-color: #2F2F2F;
 }
@@ -39,5 +43,6 @@ body {
 
 #modalbody {
     background-color: #191917;
+    color: white;
 }
 
