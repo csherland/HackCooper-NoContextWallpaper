@@ -186,10 +186,19 @@ class QuoteAdderAdmin(webapp2.RequestHandler):
 
 class ViewHandler(webapp2.RequestHandler):
     def get(self):
+        share = self.request.get('share')
         key = self.request.get('key')
         post = db.get(key)
-        self.response.headers['Content-Type'] = "image/png"
-        self.response.out.write(post.image)
+        if not share:
+            self.response.headers['Content-Type'] = "image/png"
+            self.response.out.write(post.image)
+        else:
+            template_values = {
+                    "upload_url": '/post',
+                    "key": key,
+                    }
+            template = JINJA_ENVIRONMENT.get_template('post.html')
+            self.response.write(template.render(template_values))
 
 
 class MainPage(webapp2.RequestHandler):

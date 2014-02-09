@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <title>No Context</title>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="static/css/base.css">
+
+    </head>
+
+    <body>
+        <!-- FACEBOOK LIKE BUTTON -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    
+        <!-- TWITTER TWEET BUTTON -->
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  
+
+    
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a id="logo-text" class="navbar-brand" href="/">No Context</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-right form-inline">
+                        <div class="btn-group">
+                            <button id="randomPost" type="button" class="btn btn-primary"><a href="/random">Random Post</a></button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Post</button>
+                        </div>
+                    </form>
+                </div> 
+                 
+            </div>
+        </nav>
+
+        <!-- POSTS -->
+        <div class="container"> 
+            <!-- Post view -->
+            <div class="insertPost"></div>
+            <div class="post">
+                <meta property="og:image" content="https://hackcooper-nocontext.appspot.com/view?key={{key}}" />
+                <img class="postImg" src="/view?key={{key}}"><br>
+                <ul>
+                    <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
+                    <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-via="csherland">Tweet</a></li>
+                </ul>
+            </div>
+        </div>
+   
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div id="modalheader" class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 id="modalheadertext" class="modal-title" id="myModalLabel">Create a No-Context</h4>
+                    </div>
+                    <form action="/post" method="POST" enctype="multipart/form-data">
+                        <div id="modalbody" class="modal-body">
+
+                            Quote:<textarea name="quote" rows="4" cols="50"></textarea><br>
+                            Author:<textarea name="author" rows"1" cols="30"></textarea>
+                        </div>
+
+                        <div id="modalfooter" class="modal-footer">
+                            <input id="submitPost" type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    </body>
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="static/js/jquery-2.0.3.min.js"></script> 
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script> 
+    
+    <!-- Make new post -->
+    <script>
+        $('#submitPost').click(function() {
+            $('#myModal').modal('hide');
+        });
+        
+        $('#randomPost').click(function() {
+            $('#myModal').modal('hide');
+        });
+
+        $('#addPostDiv').click(function() {
+            $('.insertPost').after("<div class=\"post\"><img class=\"postImg\" src=\"/view?key={{key}}\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-via=\"csherland\">Tweet</a></li></ul></div>");
+        });
+    </script>
+    
+    <!-- Channel api -->
+    <script src="/_ah/channel/jsapi" type="text/javascript">
+    <script>
+        channel = new goog.appengine.Channel('{{ token }}');
+        socket = channel.open();
+        socket.onmessage = function(evt) {
+            $('.insertPost').after("<div class=\"post\"><img class=\"postImg\" src=\"/view?key={{key}}\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-via=\"csherland\">Tweet</a></li></ul></div>");
+        };
+    </script>
+
+</html>
+{% endautoescape %}
