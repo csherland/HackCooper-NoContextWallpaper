@@ -221,8 +221,12 @@ class MainPage(webapp2.RequestHandler):
         keys_qry = db.GqlQuery('SELECT __key__ FROM Post ORDER BY created DESC LIMIT %s' % (limit)).fetch(limit)
 
         datHash = 'thisIsOurHashAndShit'
-        if users.is_current_user_admin():
-            token = channel.create_channel(DAT_HASH)
+        current_user = users.get_current_user()
+        if current_user:
+            if current_user.get_current_user().email() == 'ethan.lusterman@gmail.com':
+                token = channel.create_channel(DAT_HASH)
+            else:
+                token = ''
         else:
             token = ''
 
