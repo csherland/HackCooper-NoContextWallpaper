@@ -8,11 +8,15 @@
 
     <body>
 
-        <form name="input" action="html_form_action.asp" method="get">
+        <form name="input" action="/quote" method="post">
             Quote: <textarea name="quote" Rows="3" COLS="25"></textarea><br>
             Author: <textarea name="author" Rows="2" COLS="25"></textarea><br>
             <input type="submit" name="quote" value="Submit" >
         </form>
+
+        <br><br>
+        <h1>{{author}}</h1>
+        <p>{{quote}}</p>
         <!-- 
         {% for quote in quotes %}
         <h2>{{quote.author}}</h2>
