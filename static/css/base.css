@@ -1,0 +1,11 @@
+/*
+ * base.css
+ */
+
+body {
+    min-width: 960px;
+}
+
+#addButton {
+    display: inline-block;
+}
