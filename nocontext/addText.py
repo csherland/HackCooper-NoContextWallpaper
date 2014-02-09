@@ -66,7 +66,7 @@ def addText(text, author, imgurl):
 	draw.text((x,y), author, (255,255,255), font=font)
 	
 	output = cStringIO.StringIO()
-	img.save(output, "PNG")
+	img.save(output, "PNG", option='optimize')
 	img = output.getvalue()
 	output.close()
 
