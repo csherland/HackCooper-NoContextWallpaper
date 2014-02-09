@@ -81,7 +81,7 @@ class QuoteAdderAdmin(webapp2.RequestHandler):
         new_quote = Quote(author=author,quote=quote)
         new_quote.put()
 
-        self.redirect('/admin/quote?author=%s&quote=%s' % (author,quote))
+        self.redirect('/quote?author=%s&quote=%s' % (author,quote))
 
 
 
