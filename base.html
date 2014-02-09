@@ -71,7 +71,7 @@
                     </div>
 
                     <div id="modalfooter" class="modal-footer">
-                        <a href="{{upload_url}}"><button id="submitPost" type="button" class="btn btn-primary" onclick="return newPost()">Post</button></a>
+                        <button id="submitPost" type="button" class="btn btn-primary">Post</button>
                     </div>
                 </div>
             </div>
@@ -99,6 +99,17 @@
     <!-- Make new post -->
     <script>
         $('#submitPost').click(function() {
+
+            console.log($('textarea#quote').val());
+            console.log($('textarea#author').val());
+
+            $.ajax({
+                type: "POST",
+                url: {{upload_url}},
+                data: { quote: $('textarea#quote').val(), author: $('textarea#author').val() },
+            });
+            
+
             $('#myModal').modal('hide');
         }); 
     </script>
