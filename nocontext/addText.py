@@ -38,20 +38,19 @@ def addText(text, author, imgurl):
 	author = '-' + author
 	[widthauthor, height] = font.getsize(author)
 	for line in lines:
-		if i == 0:
-			[width0,height0]=font.getsize(line)
-			[imgwidth,imgheight] = img.size
-			if (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
-				while (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
-					fontsize = fontsize - 3
-					font = ImageFont.truetype(fonturlf, fontsize)
-					[width0,height0]=font.getsize(line)
-					[widthauthor, height] = font.getsize(author)
-				x=0
-				y=randint(0,imgheight-(height0*(len(lines)+1)))
-			else:
-				x=randint(0,imgwidth-width0)
-				y=randint(0,imgheight-(height0*(len(lines)+1)))
+		[width0,height0]=font.getsize(line)
+		[imgwidth,imgheight] = img.size
+		if (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
+			while (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
+				fontsize = fontsize - 3
+				font = ImageFont.truetype(fonturlf, fontsize)
+				[width0,height0]=font.getsize(line)
+				[widthauthor, height] = font.getsize(author)
+			x=0
+			y=randint(0,imgheight-(height0*(len(lines)+1)))
+		else:
+			x=randint(0,imgwidth-width0)
+			y=randint(0,imgheight-(height0*(len(lines)+1)))
 		[width, height] = font.getsize(line)
 		draw.text((x-2, y-2), line, (0,0,0), font=font)
 		draw.text((x+2, y-2), line, (0,0,0), font=font)
