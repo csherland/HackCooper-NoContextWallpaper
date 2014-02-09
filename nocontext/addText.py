@@ -40,7 +40,7 @@ def addText(text, author, imgurl):
 			[imgwidth,imgheight] = img.size
 			if width0 > imgwidth:
 				while width0 > imgwidth:
-					fontsize = fontsize - 5
+					fontsize = fontsize - 1
 					font = ImageFont.truetype(fonturlf, fontsize)
 					[width0,height0]=font.getsize(line)
 					x=randint(0,imgwidth-width0)
@@ -64,8 +64,6 @@ def addText(text, author, imgurl):
 	draw.text((x-1, y+1), author, (0,0,0), font=font)
 	draw.text((x+1, y+1), author, (0,0,0), font=font)
 	draw.text((x,y), author, (255,255,255), font=font)
-
-	img = img.resize( [int(0.5 * s) for s in img.size] )
 	
 	output = cStringIO.StringIO()
 	img.save(output, "PNG")
