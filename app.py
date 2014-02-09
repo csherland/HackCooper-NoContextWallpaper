@@ -129,7 +129,7 @@ class RandomPost(webapp2.RequestHandler):
         bg_url = db.GqlQuery('SELECT * FROM BackgroundImage WHERE rand_int=%s' % rand_int).get().url
 
         # overlay text
-        # img_out = addText(quote, author, bg_url)
+        img_out = addText(quote, author, bg_url)
         #img_out = '01'
 
         # save in datastore / blobstore
