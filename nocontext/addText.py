@@ -4,19 +4,63 @@
 
 import urllib
 import cStringIO
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw 
+from PIL import Image, ImageFont, ImageDraw, ImageFilter 
+from os import listdir
+from os.path import isfile, join
+from random import randint
+import textwrap
 
-def addText(text, imgurl, fonturl):
+def addText(text, author, imgurl):
+	lines = textwrap.wrap(text, width = 40)
+
     # Get an image
-    imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/vzD8A.jpg').read())
+	imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/vzD8A.jpg').read())
 
-    img = Image.open(imgFile)
-    
-    # Draw image and add the text 
-    draw = ImageDraw.Draw(img)
-    fonturlf='static/fonts/AUGUSTUS.TTF'
-    font = ImageFont.truetype(fonturlf, 42)
-    draw.text((0, 0), text, (255,255,255), font=font)
-    img.save('static/img/sample-out.png')
+	# Get fonts and pick a random one
+	ttffiles = [f for f in listdir('static/fonts') if isfile(join('static/fonts',f))]
+	randfile = randint(0,len(ttffiles)-1)
+
+	# Get an image
+	imgFile = cStringIO.StringIO(urllib.urlopen(imgurl).read())
+
+	img = Image.open(imgFile)
+	# Draw image and add the text 
+	draw = ImageDraw.Draw(img)
+	fonturlf='static/fonts/' + ttffiles[randfile]
+	fontsize = 50
+	font = ImageFont.truetype(fonturlf, fontsize)
+
+	y_text = 0
+	i=0
+	for line in lines:
+		if i == 0:
+			[width0,height0]=font.getsize(line)
+			[imgwidth,imgheight] = img.size
+			if width0 > imgwidth:
+				while width0 > imgwidth:
+					fontsize = fontsize - 5
+					font = ImageFont.truetype(fonturlf, fontsize)
+					[width0,height0]=font.getsize(line)
+					x=randint(0,imgwidth-width0)
+					y=randint(0,imgheight-(height0*(len(lines)+1)))
+			else:
+				x=randint(0,imgwidth-width0)
+				y=randint(0,imgheight-(height0*(len(lines)+1)))
+		[width, height] = font.getsize(line)
+		draw.text((x-1, y-1), line, (0,0,0), font=font)
+		draw.text((x+1, y-1), line, (0,0,0), font=font)
+		draw.text((x-1, y+1), line, (0,0,0), font=font)
+		draw.text((x+1, y+1), line, (0,0,0), font=font)
+		draw.text((x, y), line, (255,255,255), font=font)
+		y += height
+		i = i + 1
+	author = '-' + author
+	[widthauthor, height] = font.getsize(author)
+	x = x+width0-widthauthor
+	draw.text((x-1, y-1), author, (0,0,0), font=font)
+	draw.text((x+1, y-1), author, (0,0,0), font=font)
+	draw.text((x-1, y+1), author, (0,0,0), font=font)
+	draw.text((x+1, y+1), author, (0,0,0), font=font)
+	draw.text((x,y), author, (255,255,255), font=font)
+	
+	img.save('static/img/sample-out.png')
