@@ -27,7 +27,7 @@ def addText(text, author, imgurl):
 	# Draw image and add the text 
 	draw = ImageDraw.Draw(img)
 	fonturlf='fonts/' + ttffiles[randfile]
-	fontsize = 72
+	fontsize = 130
 	font = ImageFont.truetype(fonturlf, fontsize)
 
 	y_text = 0
@@ -38,13 +38,13 @@ def addText(text, author, imgurl):
 		if i == 0:
 			[width0,height0]=font.getsize(line)
 			[imgwidth,imgheight] = img.size
-			if width0 > imgwidth:
-				while width0 > imgwidth:
+			if (width0 > imgwidth) or ((height0*len(lines)+1 > imgheight):
+				while (width0 > imgwidth) or ((height0*len(lines)+1 > imgheight):
 					fontsize = fontsize - 1
 					font = ImageFont.truetype(fonturlf, fontsize)
 					[width0,height0]=font.getsize(line)
-				x=randint(0,imgwidth-width0)
-				y=randint(0,imgheight-(height0*(len(lines)+1)))
+				x=0
+				y=0
 			else:
 				x=randint(0,imgwidth-width0)
 				y=randint(0,imgheight-(height0*(len(lines)+1)))
