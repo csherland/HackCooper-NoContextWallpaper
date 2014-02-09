@@ -4,8 +4,23 @@
 
 body {
     min-width: 960px;
+    background-color: #191917;
 }
 
-#addButton {
-    display: inline-block;
+#logo-text {
+    color: white;
+}
+
+
+.navbar-default {
+    background-color: #2F2F2F;
+}
+
+.post {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-left:auto;
+    margin-right:auto;
+    width:75%;
+    background-color: #2F2F2F;
 }
