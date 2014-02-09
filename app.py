@@ -1,3 +1,4 @@
+import logging
 import webapp2
 import json
 import jinja2
@@ -16,6 +17,10 @@ from google.appengine.api import images
 from nocontext.addText import addText
 
 import random
+logging.getLogger().setLevel(logging.DEBUG)
+import sys
+for attr in ('stdin', 'stdout', 'stderr'):
+    setattr(sys, attr, getattr(sys, '__%s__' % attr))
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -31,7 +36,8 @@ class Font(db.Model):
     rand_int = db.IntegerProperty()
 
 class Post(db.Model):
-    image = db.StringProperty()
+    image = db.BlobProperty()
+    #image = db.StringProperty()
     created = db.DateTimeProperty(auto_now_add=True)
     quote = db.StringProperty()
     #font = db.ReferenceProperty(Font)
@@ -64,16 +70,6 @@ class Update(webapp2.RequestHandler):
     def get(self):
         posts = self.request.get('posts')
 
-class MainPage(webapp2.RequestHandler):
-
-    def get(self):
-
-        template_values = {
-                "upload_url": '/post'
-                }
-        template = JINJA_ENVIRONMENT.get_template('base.html')
-        self.response.write(template.render(template_values))
-
 class UserPost(blobstore_handlers.BlobstoreUploadHandler):
 #class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
@@ -83,35 +79,48 @@ class UserPost(blobstore_handlers.BlobstoreUploadHandler):
 
         # get random background
         max_bg = db.GqlQuery('SELECT rand_int FROM BackgroundImage ORDER BY rand_int DESC LIMIT 1').get().rand_int
-        bg_url = db.GqlQuery('SELECT * FROM BackgroundImage WHERE rand_int=%s' % max_bg).get().url
+        rand_int = random.randint(1,max_bg)
+        bg_url = db.GqlQuery('SELECT * FROM BackgroundImage WHERE rand_int=%s' % rand_int).get().url
 
         # overlay text
         img_out = addText(quote, author, bg_url)
+        #img_out = '01'
 
         # save in datastore / blobstore
-        upload_url = blobstore.create_upload_url('/upload')
+        # upload_url = blobstore.create_upload_url('/upload')
+        p = Post(
+                image=img_out,
+                author=author,
+                quote=quote
+                )
+        p.put()
+        self.redirect('/')
 
-        params = {"author":author,
-                "quote":quote,
-                "img":img_out
-                }
-        encd = urllib.urlencode(params)
+        #params = {"author":author,
+        #        "quote":quote,
+        #        "img":img_out
+        #        }
+        #encd = urllib.urlencode(params)
         #req = urllib2.Request(upload_url, urllib.urlencode(params))
         #resp = urllib2.urlopen(req)
-        result = urlfetch.fetch(url=upload_url,
-                payload=encd,
-                method=urlfetch.POST)
+        #result = urlfetch.fetch(url=upload_url,
+        #        payload=encd,
+        #        method=urlfetch.POST)
 
-        #self.redirect('/')
 
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         upload_files = self.get_uploads('img')
         if not upload_files:
+            logging.error('HEREEEEEEEEEEEEEEEEEE')
             upload_files = self.request.get('img')
-        self.response.write('HERE')
         blob_info = upload_files[0]
+
+        logging.error('blob info: %s' % blob_info)
+        logging.error('upload files: %s' % upload_files)
+
+
 
         image = blob_info.key()
         p = Post(
@@ -121,6 +130,7 @@ class Upload(blobstore_handlers.BlobstoreUploadHandler):
                 )
         p.put()
         self.response.write('THERE')
+        self.redirect('/')
 
 
 class QuoteAdderAdmin(webapp2.RequestHandler):
@@ -141,6 +151,27 @@ class QuoteAdderAdmin(webapp2.RequestHandler):
 
         self.redirect('/quote?author=%s&quote=%s' % (author,quote))
 
+class ViewHandler(webapp2.RequestHandler):
+    def get(self):
+        key = self.request.get('key')
+        post = db.get(key)
+        self.response.headers['Content-Type'] = "image/png"
+        self.response.out.write(post.image)
+
+
+class MainPage(webapp2.RequestHandler):
+
+    def get(self):
+        limit = 4
+        keys_qry = db.GqlQuery('SELECT __key__ FROM Post ORDER BY created DESC LIMIT %s' % (limit)).fetch(limit)
+
+        template_values = {
+                "upload_url": '/post',
+                "keys": keys_qry,
+                }
+        template = JINJA_ENVIRONMENT.get_template('base.html')
+        self.response.write(template.render(template_values))
+
 
 
 application = webapp2.WSGIApplication([
@@ -149,4 +180,5 @@ application = webapp2.WSGIApplication([
     ('/Update', Update),
     ('/quote', QuoteAdderAdmin),
     ('/post', UserPost),
+    ('/view', ViewHandler),
 ], debug=True)

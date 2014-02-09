@@ -42,13 +42,15 @@
         <!-- POSTS -->
         <div class="container"> 
             <!-- Post view -->
+            {% for key in keys %}
             <div class="post"> 
-                <img class="postImg" src="static/img/sample-out.png"><br>
+                <img class="postImg" src="/view?key={{key}}"><br>
                 <ul>
                     <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
                     <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/" data-via="csherland">Tweet</a></li>
                 </ul>
             </div>
+            {% endfor %}
         </div>
    
         <!-- Modal -->
