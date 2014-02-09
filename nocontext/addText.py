@@ -30,8 +30,6 @@ def addText(text, author, imgurl):
 	fontsize = 150
 	font = ImageFont.truetype(fonturlf, fontsize)
 
-	y_text = 0
-	i=0
 	x=0
 	y=0
 	width0=0
@@ -57,8 +55,8 @@ def addText(text, author, imgurl):
 		draw.text((x-2, y+2), line, (0,0,0), font=font)
 		draw.text((x+2, y+2), line, (0,0,0), font=font)
 		draw.text((x, y), line, (255,255,255), font=font)
-		y += height
-		i = i + 1
+		y += height0
+	[widthauthor, height] = font.getsize(author)
 	x = x+width0-widthauthor
 	draw.text((x-2, y-2), author, (0,0,0), font=font)
 	draw.text((x+2, y-2), author, (0,0,0), font=font)
