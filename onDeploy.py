@@ -24,7 +24,7 @@ if False:
     entries =query.fetch(1000)
     db.delete(entries)
 
-if False:
+if True:
     for i in range(len(x)):
         #link = urllib.quote_plus(link)
         b = BackgroundImage()
