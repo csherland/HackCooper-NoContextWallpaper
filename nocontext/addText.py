@@ -8,7 +8,7 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw 
 
-def addText(text, imgurl, fonturl):
+def addText(text, author, imgurl):
     # Get an image
     imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/vzD8A.jpg').read())
 
@@ -30,6 +30,8 @@ def addText(text, imgurl, fonturl):
 		[width, height] = font.getsize(line)
 		draw.text((0, y_text), line, (255,255,255), font=font)
 		y_text += height
-
+	author = '-' + author
+	[widthauthor, height] = font.getsize(author)
+	draw.text((width-widthauthor,y_text), author, (255,255,255), font=font)
 	
 	img.save('static/img/sample-out.png')
