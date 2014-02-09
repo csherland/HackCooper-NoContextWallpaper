@@ -43,8 +43,8 @@ def addText(text, author, imgurl):
 					fontsize = fontsize - 1
 					font = ImageFont.truetype(fonturlf, fontsize)
 					[width0,height0]=font.getsize(line)
-					x=randint(0,imgwidth-width0)
-					y=randint(0,imgheight-(height0*(len(lines)+1)))
+				x=randint(0,imgwidth-width0)
+				y=randint(0,imgheight-(height0*(len(lines)+1)))
 			else:
 				x=randint(0,imgwidth-width0)
 				y=randint(0,imgheight-(height0*(len(lines)+1)))
