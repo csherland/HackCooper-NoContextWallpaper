@@ -14,7 +14,7 @@ def addText(text, author, imgurl):
 	lines = textwrap.wrap(text, width = 40)
 
     # Get an image
-	imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/vzD8A.jpg').read())
+	imgFile = cStringIO.StringIO(urllib.urlopen(imgurl).read())
 
 	# Get fonts and pick a random one
 	ttffiles = [f for f in listdir('fonts') if isfile(join('fonts',f))]
@@ -26,7 +26,7 @@ def addText(text, author, imgurl):
 	img = Image.open(imgFile)
 	# Draw image and add the text 
 	draw = ImageDraw.Draw(img)
-	fonturlf='static/fonts/' + ttffiles[randfile]
+	fonturlf='fonts/' + ttffiles[randfile]
 	fontsize = 50
 	font = ImageFont.truetype(fonturlf, fontsize)
 
