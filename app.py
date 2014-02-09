@@ -66,15 +66,25 @@ class MainPage(webapp2.RequestHandler):
 class QuoteAdderAdmin(webapp2.RequestHandler):
 
     def get(self):
+        author = self.request.get('author')
+        quote = self.request.get('quote')
         # quotes_qry = Quote.all()
         # template_values = {"quotes": quotes_qry}
-        template_values = {}
+        template_values = {"author": author, "quote": quote}
         template = JINJA_ENVIRONMENT.get_template('admin_quote.html')
         self.response.write(template.render(template_values))
 
     def post(self):
         author = self.request.get('author')
         quote = self.request.get('quote')
+
+        new_quote = Quote(author=author,quote=quote)
+        new_quote.put()
+
+        self.redirect('/admin/quote?author=%s&quote=%s' % (author,quote))
+
+
+
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
