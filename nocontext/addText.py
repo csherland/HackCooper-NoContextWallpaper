@@ -59,7 +59,7 @@ def addText(text, author, imgurl):
 	author = '-' + author
 	[widthauthor, height] = font.getsize(author)
 	x = x+width0-widthauthor
-	draw.text((x-2 y-2), author, (0,0,0), font=font)
+	draw.text((x-2, y-2), author, (0,0,0), font=font)
 	draw.text((x+2, y-2), author, (0,0,0), font=font)
 	draw.text((x-2, y+2), author, (0,0,0), font=font)
 	draw.text((x+2, y+2), author, (0,0,0), font=font)
