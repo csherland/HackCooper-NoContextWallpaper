@@ -27,7 +27,7 @@ def addText(text, author, imgurl):
 	# Draw image and add the text 
 	draw = ImageDraw.Draw(img)
 	fonturlf='fonts/' + ttffiles[randfile]
-	fontsize = 50
+	fontsize = 72
 	font = ImageFont.truetype(fonturlf, fontsize)
 
 	y_text = 0
