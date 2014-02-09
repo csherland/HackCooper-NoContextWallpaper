@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-right form-inline">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPost">New Post</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPostDiv">Add html</button>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Post</button>
                         </div>
                     </form>
@@ -43,6 +43,7 @@
         <!-- POSTS -->
         <div class="container"> 
             <!-- Post view -->
+            <div class="insertPost"></div>
             {% for key in keys %}
             <div class="post"> 
                 <img class="postImg" src="/view?key={{key}}"><br>
@@ -88,7 +89,7 @@
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
+      if (d.getElinementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
       fjs.parentNode.insertBefore(js, fjs);
@@ -107,8 +108,8 @@
             $('#myModal').modal('hide');
         });
 
-        $('#addPost').click(function() {
-                $(".post").("<p>TEST</p>");
+        $('#addPostDiv').click(function() {
+                $('.insertPost').after('<div><p>TEST</p></div>');
         });
     </script>
 

@@ -19,7 +19,7 @@ x = f.readlines()
 #for line in x:
 #    line
 
-if False:
+if True:
     query = BackgroundImage.all(keys_only=True)
     entries =query.fetch(1000)
     db.delete(entries)
