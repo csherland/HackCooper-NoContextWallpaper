@@ -24,6 +24,8 @@ import sys
 for attr in ('stdin', 'stdout', 'stderr'):
     setattr(sys, attr, getattr(sys, '__%s__' % attr))
 
+DAT_HASH = '605aadf4eb8f69cc9f8997495d1026b0'
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -98,10 +100,8 @@ class UserPost(webapp2.RequestHandler):
         p.put()
 
         # send message thru channel api
-        key = p.key()
 
-        datHash = 'thisIsOurHashAndShit'
-        channel.send_message(datHash,json.dumps({'key':str(p.key())}))
+        channel.send_message(DAT_HASH,str(p.key()))
 
         self.redirect('/')
 
@@ -151,7 +151,7 @@ class RandomPost(webapp2.RequestHandler):
         p.put()
 
         datHash = 'thisIsOurHashAndShit'
-        channel.send_message(datHash,json.dumps({'key':str(p.key())}))
+        channel.send_message(DAT_HASH,str(p.key()))
 
         self.redirect('/')
 
@@ -221,7 +221,7 @@ class MainPage(webapp2.RequestHandler):
         keys_qry = db.GqlQuery('SELECT __key__ FROM Post ORDER BY created DESC LIMIT %s' % (limit)).fetch(limit)
 
         datHash = 'thisIsOurHashAndShit'
-        token = channel.create_channel(datHash)
+        token = channel.create_channel(DAT_HASH)
 
         template_values = {
                 "token": token,
@@ -240,5 +240,5 @@ application = webapp2.WSGIApplication([
     ('/quote', QuoteAdderAdmin),
     ('/post', UserPost),
     ('/view', ViewHandler),
-    ('/random', RandomPost)
+    ('/random', RandomPost),
 ], debug=True)
