@@ -32,6 +32,8 @@ def addText(text, author, imgurl):
 
 	y_text = 0
 	i=0
+	x=0
+	y=0
 	for line in lines:
 		if i == 0:
 			[width0,height0]=font.getsize(line)
