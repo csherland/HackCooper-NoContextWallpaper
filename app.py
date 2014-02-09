@@ -103,8 +103,7 @@ class UserPost(webapp2.RequestHandler):
 
         channel.send_message(DAT_HASH,str(p.key()))
 
-        if not users.is_current_user_admin():
-            self.redirect('/')
+        self.redirect('/')
 
         #params = {"author":author,
         #        "quote":quote,
@@ -154,8 +153,7 @@ class RandomPost(webapp2.RequestHandler):
         datHash = 'thisIsOurHashAndShit'
         channel.send_message(DAT_HASH,str(p.key()))
 
-        if not users.is_current_user_admin():
-            self.redirect('/')
+        self.redirect('/')
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
