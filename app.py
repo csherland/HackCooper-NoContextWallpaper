@@ -103,7 +103,8 @@ class UserPost(webapp2.RequestHandler):
 
         channel.send_message(DAT_HASH,str(p.key()))
 
-        self.redirect('/')
+        if not users.is_current_user_admin():
+            self.redirect('/')
 
         #params = {"author":author,
         #        "quote":quote,
@@ -153,7 +154,8 @@ class RandomPost(webapp2.RequestHandler):
         datHash = 'thisIsOurHashAndShit'
         channel.send_message(DAT_HASH,str(p.key()))
 
-        self.redirect('/')
+        if not users.is_current_user_admin():
+            self.redirect('/')
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
@@ -221,7 +223,10 @@ class MainPage(webapp2.RequestHandler):
         keys_qry = db.GqlQuery('SELECT __key__ FROM Post ORDER BY created DESC LIMIT %s' % (limit)).fetch(limit)
 
         datHash = 'thisIsOurHashAndShit'
-        token = channel.create_channel(DAT_HASH)
+        if users.is_current_user_admin():
+            token = channel.create_channel(DAT_HASH)
+        else:
+            token = ''
 
         template_values = {
                 "token": token,
