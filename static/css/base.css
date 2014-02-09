@@ -46,3 +46,23 @@ body {
     color: white;
 }
 
+.postImg {
+    margin-left: auto;
+    margin-right: auto
+}
+
+.fb-like {
+    width:80px!important;
+}
+
+.tweet-link {
+    width:80px!important;
+}
+
+.social-buttons {
+    float:right !important;
+    display:inline-block !important;
+    margin:0 5px 0 0 !important;
+    border:none;
+}
+

@@ -12,7 +12,7 @@
 
     <body>
         
-        <!-- FACEBOOK LIKE -->
+        <!-- FACEBOOK LIKE BUTTON -->
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -22,6 +22,10 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 
+        <!-- TWITTER TWEET BUTTON -->
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>   
+        
+        <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
 
             <div class="container">
@@ -51,18 +55,18 @@
             </div>
         </nav>
 
+        <!-- POSTS -->
         <div class="container posts"> 
             <!-- Post view -->
             <div class="post"> 
-                <img src="test.png">
-                <div class="social">
-                    <div class="fb-like" data-href="https://hackcooper-nocontext.appspot.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
-                    <div class="tweet-link"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/"" data-via="csherland">Tweet</a>
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>    
-                </div>
+                <img class="postImg" src="test.png"><br>
+                <ul>
+                    <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
+                    <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/" data-via="csherland">Tweet</a></li>
+                </ul>
             </div>
         </div>
-    
+   
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
