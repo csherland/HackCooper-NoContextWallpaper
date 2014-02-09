@@ -223,7 +223,7 @@ class MainPage(webapp2.RequestHandler):
         datHash = 'thisIsOurHashAndShit'
         current_user = users.get_current_user()
         if current_user:
-            if current_user.get_current_user().email() == 'ethan.lusterman@gmail.com':
+            if current_user.email() == 'ethan.lusterman@gmail.com':
                 token = channel.create_channel(DAT_HASH)
             else:
                 token = ''
