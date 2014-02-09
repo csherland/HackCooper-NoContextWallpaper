@@ -30,6 +30,11 @@ body {
     color: white;
 }
 
+#randomPost a {
+    color: white;
+    text-decoration: none;
+}
+
 .modal-backdrop {
     background: none;
 }
