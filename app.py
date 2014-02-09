@@ -90,5 +90,5 @@ application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/Upload', Upload),
     ('/Update', Update),
-    ('/admin/quote', QuoteAdderAdmin),
+    ('/quote', QuoteAdderAdmin),
 ], debug=True)
