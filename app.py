@@ -112,7 +112,7 @@ class RandomPost(webapp2.RequestHandler):
     def get(self):
 
         # get random quote
-        max_qu = db.GqlQuery('SELECT rand_int FROM Quote ORDER BY rand_int DESC LIMIT 1').get.rand_int
+        max_qu = db.GqlQuery('SELECT rand_int FROM Quote ORDER BY rand_int DESC LIMIT 1').get().rand_int
         rand_int = random.randint(1,max_qu)
         rand_qu = db.GqlQuery('SELECT * FROM Quote WHERE rand_int=%s' % rand_int).get
         quote = rand_qu.quote
