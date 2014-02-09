@@ -4,11 +4,13 @@ import jinja2
 import os
 import datetime
 import urllib2
+import urllib
 
 from google.appengine.ext import db
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import users
+from google.appengine.api import urlfetch
 from google.appengine.api import images
 
 from nocontext.addText import addText
@@ -93,17 +95,22 @@ class UserPost(blobstore_handlers.BlobstoreUploadHandler):
                 "quote":quote,
                 "img":img_out
                 }
+        encd = urllib.urlencode(params)
+        #req = urllib2.Request(upload_url, urllib.urlencode(params))
+        #resp = urllib2.urlopen(req)
+        result = urlfetch.fetch(url=upload_url,
+                payload=encd,
+                method=urlfetch.POST)
 
-        req = urllib2.Request(upload_url, urllib.urlencode(params))
+        #self.redirect('/')
 
-#        post.image = images.get_serving_url(image)
-#        p = Post(
-#                image=images.get_serving_url(image)
-#        post.put()
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         upload_files = self.get_uploads('img')
+        if not upload_files:
+            upload_files = self.request.get('img')
+        self.response.write('HERE')
         blob_info = upload_files[0]
 
         image = blob_info.key()
@@ -113,6 +120,7 @@ class Upload(blobstore_handlers.BlobstoreUploadHandler):
                 quote=self.request.get('quote')
                 )
         p.put()
+        self.response.write('THERE')
 
 
 class QuoteAdderAdmin(webapp2.RequestHandler):
