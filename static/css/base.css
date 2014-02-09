@@ -1,4 +1,4 @@
-/*
+/
  * base.css
  */
 
@@ -39,4 +39,8 @@ body {
 
 #modalbody {
     background-color: #191917;
+}
+
+#modalheadertext {
+    font-style:normal;
 }
