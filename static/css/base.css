@@ -26,6 +26,11 @@ body {
     background-color: #2F2F2F;
 }
 
+.btn-group Button {
+    margin-left:5px;
+    margin-right:5px;
+}
+
 #modalheadertext {
     color: white;
 }
