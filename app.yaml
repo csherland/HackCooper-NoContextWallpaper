@@ -12,9 +12,6 @@ handlers:
 - url: /static/*
   static_dir: static/
 
-- url: /test.png
-  static_files: test.png
-
 - url: /quote
   script: app.application
   login: admin
@@ -27,4 +24,6 @@ libraries:
 - name: webapp2
   version: latest
 - name: jinja2
+  version: latest
+- name: PIL
   version: latest
