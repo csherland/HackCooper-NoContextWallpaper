@@ -65,11 +65,11 @@ def addText(text, author, imgurl):
 	draw.text((x+1, y+1), author, (0,0,0), font=font)
 	draw.text((x,y), author, (255,255,255), font=font)
 
-	img = img.resize( [int(0.25 * s) for s in img.size] )
+	img = img.resize( [int(0.5 * s) for s in img.size] )
 	
 	output = cStringIO.StringIO()
 	img.save(output, "PNG")
-	img = str(output.getvalue())
+	img = output.getvalue()
 	output.close()
 
 	return img
