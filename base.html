@@ -11,8 +11,7 @@
     </head>
 
     <body>
-        
-        
+    
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
 
@@ -60,19 +59,18 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 id="modalheadertext" class="modal-title" id="myModalLabel">Create a No-Context</h4>
                     </div>
-                    <div id="modalbody" class="modal-body">
+                    <form action="/post" method="POST" enctype="multipart/form-data">
+                        <div id="modalbody" class="modal-body">
 
-                        Quote:<textarea id="quote" rows="4" cols="50">
-                        </textarea><br>
+                            Quote:<textarea id="quote" rows="4" cols="50"></textarea><br>
 
-                        Author:<textarea id="author" rows"1 " cols="30">
-                        </textarea>
+                            Author:<textarea id="author" rows"1" cols="30"></textarea>
+                        </div>
 
-                    </div>
-
-                    <div id="modalfooter" class="modal-footer">
-                        <button id="submitPost" type="button" class="btn btn-primary">Post</button>
-                    </div>
+                        <div id="modalfooter" class="modal-footer">
+                            <input id="submitPost" type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -100,6 +98,7 @@
     <script>
         $('#submitPost').click(function() {
 
+                /*
             console.log($('textarea#quote').val());
             console.log($('textarea#author').val());
 
@@ -108,7 +107,7 @@
                 url: {{upload_url}},
                 data: { quote: $('textarea#quote').val(), author: $('textarea#author').val() },
             });
-            
+            */
 
             $('#myModal').modal('hide');
         }); 
