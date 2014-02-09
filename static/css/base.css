@@ -19,6 +19,10 @@ body {
     border-bottom: 5px solid #464644;
 }
 
+.posts {
+    margin-top:20px; 
+}
+
 .post {
     padding-top: 25px;
     padding-bottom: 25px;
