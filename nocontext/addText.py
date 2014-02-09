@@ -8,14 +8,15 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw 
 
-def addText(text):
+def addText(text, imgurl, fonturl):
     # Get an image
-    imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/EpuhHJa.png').read())
+    imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/vzD8A.jpg').read())
 
     img = Image.open(imgFile)
     
     # Draw image and add the text 
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("sans-serif.ttf", 16)
+    fonturlf='static/fonts/AUGUSTUS.TTF'
+    font = ImageFont.truetype(fonturlf, 42)
     draw.text((0, 0), text, (255,255,255), font=font)
     img.save('static/img/sample-out.png')
