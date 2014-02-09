@@ -1,4 +1,5 @@
 import logging
+import string
 import webapp2
 import json
 import jinja2
@@ -7,6 +8,7 @@ import datetime
 import urllib2
 import urllib
 
+from google.appengine.api import channel
 from google.appengine.ext import db
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
@@ -94,6 +96,13 @@ class UserPost(webapp2.RequestHandler):
                 quote=quote
                 )
         p.put()
+
+        # send message thru channel api
+        key = p.key()
+
+        datHash = 'thisIsOurHashAndShit'
+        channel.send_message(datHash,json.dumps({'key':str(p.key())}))
+
         self.redirect('/')
 
         #params = {"author":author,
@@ -140,6 +149,10 @@ class RandomPost(webapp2.RequestHandler):
                 quote=quote
                 )
         p.put()
+
+        datHash = 'thisIsOurHashAndShit'
+        channel.send_message(datHash,json.dumps({'key':str(p.key())}))
+
         self.redirect('/')
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
@@ -207,9 +220,13 @@ class MainPage(webapp2.RequestHandler):
         limit = 4
         keys_qry = db.GqlQuery('SELECT __key__ FROM Post ORDER BY created DESC LIMIT %s' % (limit)).fetch(limit)
 
+        datHash = 'thisIsOurHashAndShit'
+        token = channel.create_channel(datHash)
+
         template_values = {
+                "token": token,
                 "upload_url": '/post',
-                "keys": keys_qry,
+                "keys": keys_qry
                 }
         template = JINJA_ENVIRONMENT.get_template('base.html')
         self.response.write(template.render(template_values))

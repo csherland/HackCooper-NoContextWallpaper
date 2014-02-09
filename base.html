@@ -119,7 +119,7 @@
         channel = new goog.appengine.Channel('{{ token }}');
         socket = channel.open();
         socket.onmessage = function(evt) {
-            $('.insertPost').after("<div class=\"post\"><img class=\"postImg\" src=\"/view?key={{key}}\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-via=\"csherland\">Tweet</a></li></ul></div>");
+            $('.insertPost').after("<div class=\"post\"><img class=\"postImg\" src=\"/view?key={{"+evt.key+"}}\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key={{key}}\" data-via=\"csherland\">Tweet</a></li></ul></div>");
         };
     </script>
 
