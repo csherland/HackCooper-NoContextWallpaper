@@ -17,7 +17,7 @@ def addText(text, author, imgurl):
 	imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/vzD8A.jpg').read())
 
 	# Get fonts and pick a random one
-	ttffiles = [f for f in listdir('static/fonts') if isfile(join('static/fonts',f))]
+	ttffiles = [f for f in listdir('fonts') if isfile(join('fonts',f))]
 	randfile = randint(0,len(ttffiles)-1)
 
 	# Get an image
