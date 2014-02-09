@@ -1,4 +1,5 @@
 import logging
+import string
 import webapp2
 import json
 import jinja2
@@ -7,6 +8,7 @@ import datetime
 import urllib2
 import urllib
 
+from google.appengine.api import channel
 from google.appengine.ext import db
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
@@ -21,6 +23,8 @@ logging.getLogger().setLevel(logging.DEBUG)
 import sys
 for attr in ('stdin', 'stdout', 'stderr'):
     setattr(sys, attr, getattr(sys, '__%s__' % attr))
+
+DAT_HASH = '605aadf4eb8f69cc9f8997495d1026b0'
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -94,6 +98,11 @@ class UserPost(webapp2.RequestHandler):
                 quote=quote
                 )
         p.put()
+
+        # send message thru channel api
+
+        channel.send_message(DAT_HASH,str(p.key()))
+
         self.redirect('/')
 
         #params = {"author":author,
@@ -140,6 +149,10 @@ class RandomPost(webapp2.RequestHandler):
                 quote=quote
                 )
         p.put()
+
+        datHash = 'thisIsOurHashAndShit'
+        channel.send_message(DAT_HASH,str(p.key()))
+
         self.redirect('/')
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
@@ -207,9 +220,20 @@ class MainPage(webapp2.RequestHandler):
         limit = 4
         keys_qry = db.GqlQuery('SELECT __key__ FROM Post ORDER BY created DESC LIMIT %s' % (limit)).fetch(limit)
 
+        datHash = 'thisIsOurHashAndShit'
+        current_user = users.get_current_user()
+        if current_user:
+            if current_user.email() == 'ethan.lusterman@gmail.com':
+                token = channel.create_channel(DAT_HASH)
+            else:
+                token = ''
+        else:
+            token = ''
+
         template_values = {
+                "token": token,
                 "upload_url": '/post',
-                "keys": keys_qry,
+                "keys": keys_qry
                 }
         template = JINJA_ENVIRONMENT.get_template('base.html')
         self.response.write(template.render(template_values))
@@ -223,5 +247,5 @@ application = webapp2.WSGIApplication([
     ('/quote', QuoteAdderAdmin),
     ('/post', UserPost),
     ('/view', ViewHandler),
-    ('/random', RandomPost)
+    ('/random', RandomPost),
 ], debug=True)
