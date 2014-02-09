@@ -52,11 +52,11 @@
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div id="modalheader" class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Create a No-Context</h4>
+                        <h4 id="modalheadertext" class="modal-title" id="myModalLabel">Create a No-Context</h4>
                     </div>
-                    <div class="modal-body">
+                    <div id="modalbody" class="modal-body">
 
                         <textarea id="quote" rows="4" cols="50">
                             Quote here...
@@ -66,7 +66,8 @@
                         </textarea>
 
                     </div>
-                    <div class="modal-footer">
+
+                    <div id="modalfooter" class="modal-footer">
                         <button type="button" class="btn btn-primary">Post</button>
                     </div>
                 </div>
