@@ -43,6 +43,7 @@
         <!-- POSTS -->
         <div class="container"> 
             <!-- Post view -->
+            <div id="insertPost"></div>
             {% for key in keys %}
             <div class="post"> 
                 <img class="postImg" src="/view?key={{key}}"><br>
@@ -88,7 +89,7 @@
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
+      if (d.getElinementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
       fjs.parentNode.insertBefore(js, fjs);
@@ -108,7 +109,7 @@
         });
 
         $('#addPost').click(function() {
-                $(".post").("<p>TEST</p>");
+            $( "#insertPost" ).after( "<p>Test</p>" );
         });
     </script>
 
