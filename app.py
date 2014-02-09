@@ -70,7 +70,7 @@ class Update(webapp2.RequestHandler):
     def get(self):
         posts = self.request.get('posts')
 
-class UserPost(blobstore_handlers.BlobstoreUploadHandler):
+class UserPost(webapp2.RequestHandler):
 #class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         # TODO: random quote if random button hit, otherwise do user quote
@@ -108,6 +108,34 @@ class UserPost(blobstore_handlers.BlobstoreUploadHandler):
         #        method=urlfetch.POST)
 
 
+class RandomPost(webapp2.RequestHandler):
+    def get(self):
+
+        # get random quote
+        max_qu = db.GqlQuery('SELECT rand_int FROM Quote ORDER BY rand_int DESC LIMIT 1').get.rand_int
+        rand_int = random.randint(1,max_qu)
+        rand_qu = db.GqlQuery('SELECT * FROM Quote WHERE rand_int=%s' % rand_int).get
+        quote = rand_qu.quote
+        author = rand_qu.author
+
+        # get random background
+        max_bg = db.GqlQuery('SELECT rand_int FROM BackgroundImage ORDER BY rand_int DESC LIMIT 1').get().rand_int
+        rand_int = random.randint(1,max_bg)
+        bg_url = db.GqlQuery('SELECT * FROM BackgroundImage WHERE rand_int=%s' % rand_int).get().url
+
+        # overlay text
+        img_out = addText(quote, author, bg_url)
+        #img_out = '01'
+
+        # save in datastore / blobstore
+        # upload_url = blobstore.create_upload_url('/upload')
+        p = Post(
+                image=img_out,
+                author=author,
+                quote=quote
+                )
+        p.put()
+        self.redirect('/')
 
 class Upload(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
@@ -181,4 +209,5 @@ application = webapp2.WSGIApplication([
     ('/quote', QuoteAdderAdmin),
     ('/post', UserPost),
     ('/view', ViewHandler),
+    ('/random', RandomPost)
 ], debug=True)
