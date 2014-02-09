@@ -35,12 +35,14 @@ def addText(text, author, imgurl):
 	x=0
 	y=0
 	width0=0
+	author = '-' + author
+	[widthauthor, height] = font.getsize(author)
 	for line in lines:
 		if i == 0:
 			[width0,height0]=font.getsize(line)
 			[imgwidth,imgheight] = img.size
-			if (width0 > imgwidth) or (height0*len(lines)+1 > imgheight):
-				while (width0 > imgwidth) or (height0*len(lines)+1 > imgheight):
+			if (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
+				while (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
 					fontsize = fontsize - 1
 					font = ImageFont.truetype(fonturlf, fontsize)
 					[width0,height0]=font.getsize(line)
@@ -57,8 +59,6 @@ def addText(text, author, imgurl):
 		draw.text((x, y), line, (255,255,255), font=font)
 		y += height
 		i = i + 1
-	author = '-' + author
-	[widthauthor, height] = font.getsize(author)
 	x = x+width0-widthauthor
 	draw.text((x-2, y-2), author, (0,0,0), font=font)
 	draw.text((x+2, y-2), author, (0,0,0), font=font)
