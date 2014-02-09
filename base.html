@@ -31,6 +31,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-right form-inline">
                         <div class="btn-group">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPostDiv">Add html</button>
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Post</button>
                         </div>
                     </form>
@@ -42,7 +43,7 @@
         <!-- POSTS -->
         <div class="container"> 
             <!-- Post view -->
-            <div id="insertPost"></div>
+            <div class="insertPost"></div>
             {% for key in keys %}
             <div class="post"> 
                 <img class="postImg" src="/view?key={{key}}"><br>
@@ -107,6 +108,9 @@
             $('#myModal').modal('hide');
         });
 
+        $('#addPostDiv').click(function() {
+                $('.insertPost').after('<div><p>TEST</p></div>');
+        });
     </script>
 
 </html>
