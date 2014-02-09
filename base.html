@@ -62,9 +62,8 @@
                     <form action="/post" method="POST" enctype="multipart/form-data">
                         <div id="modalbody" class="modal-body">
 
-                            Quote:<textarea id="quote" rows="4" cols="50"></textarea><br>
-
-                            Author:<textarea id="author" rows"1" cols="30"></textarea>
+                            Quote:<textarea name="quote" rows="4" cols="50"></textarea><br>
+                            Author:<textarea name="author" rows"1" cols="30"></textarea>
                         </div>
 
                         <div id="modalfooter" class="modal-footer">
@@ -97,18 +96,6 @@
     <!-- Make new post -->
     <script>
         $('#submitPost').click(function() {
-
-                /*
-            console.log($('textarea#quote').val());
-            console.log($('textarea#author').val());
-
-            $.ajax({
-                type: "POST",
-                url: {{upload_url}},
-                data: { quote: $('textarea#quote').val(), author: $('textarea#author').val() },
-            });
-            */
-
             $('#myModal').modal('hide');
         }); 
     </script>
