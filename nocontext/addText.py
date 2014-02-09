@@ -63,4 +63,4 @@ def addText(text, author, imgurl):
 	draw.text((x+1, y+1), author, (0,0,0), font=font)
 	draw.text((x,y), author, (255,255,255), font=font)
 	
-	img.save('static/img/sample-out.png')
+	return img
