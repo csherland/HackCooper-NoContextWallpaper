@@ -43,7 +43,7 @@ def addText(text, author, imgurl):
 			[imgwidth,imgheight] = img.size
 			if (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
 				while (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
-					fontsize = fontsize - 1
+					fontsize = fontsize - 3
 					font = ImageFont.truetype(fonturlf, fontsize)
 					[width0,height0]=font.getsize(line)
 				x=0
