@@ -17,10 +17,6 @@ handlers:
   login: admin
   auth_fail_action: redirect
 
-- url: /admin/.*
-  script: google.appengine.ext.admin.application
-  login: admin
-
 - url: /.*
   script: app.application
 
