@@ -12,18 +12,6 @@
 
     <body>
         
-        <!-- FACEBOOK LIKE BUTTON -->
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-
-        <!-- TWITTER TWEET BUTTON -->
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>   
         
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
@@ -44,22 +32,19 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-right form-inline">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Post</button>
                         </div>
                     </form>
-                    <!--<ul class="nav navbar-nav navbar-right">-->
-                    <!--</ul>-->
                 </div> 
-                
-            
+                 
             </div>
         </nav>
 
         <!-- POSTS -->
-        <div class="container posts"> 
+        <div class="container"> 
             <!-- Post view -->
             <div class="post"> 
-                <img class="postImg" src="test.png"><br>
+                <img class="postImg" src="static/img/test.png"><br>
                 <ul>
                     <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
                     <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/" data-via="csherland">Tweet</a></li>
@@ -86,7 +71,7 @@
                     </div>
 
                     <div id="modalfooter" class="modal-footer">
-                        <a href="/post"><button type="button" class="btn btn-primary">Post</button></a>
+                        <a href="{{upload_url}}"><button type="button" class="btn btn-primary">Post</button></a>
                     </div>
                 </div>
             </div>
@@ -97,6 +82,19 @@
     <!-- Javascript -->
     <script type="text/javascript" src="static/js/jquery-2.0.3.min.js"></script> 
     <script type="text/javascript" src="static/js/bootstrap.min.js"></script> 
+    
+    <!-- FACEBOOK LIKE BUTTON -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- TWITTER TWEET BUTTON -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>   
 
 </html>
 {% endautoescape %}
