@@ -59,12 +59,13 @@
         <!-- FACEBOOK LIKE BUTTON -->
         <div id="fb-root"></div>
         <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=238942629612197";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
 
         <!-- TWITTER TWEET BUTTON -->
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -107,7 +108,7 @@
             <li id="{{key}}" class="post">
                 <a href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1"><img class="postImg" src="/view?key={{key}}"></a><br>
                 <ul>
-                    <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
+                    <li class="fb-share-button" ddata-href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-type="button_count"></li>
                     <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-via="csherland">Tweet</a></li>
                 </ul>
             </li>
@@ -170,7 +171,7 @@
                     success: function(data) {
                         var data = $.parseJSON(data);
                         for (var x = 0; x < data.length; x++) {
-                            $('#thePosts').append('<li id="'+data[x]+'" class="post"><a href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1"><img class="postImg" src="/view?key='+data[x]+'"></a><br><ul><li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li><li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1" data-via="csherland">Tweet</a></li></ul></li>')
+                            $('#thePosts').append('<li id="'+data[x]+'" class="post"><a href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1"><img class="postImg" src="/view?key='+data[x]+'"></a><br><ul><li class="fb-share-button" ddata-href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1" data-type="button_count"></li><li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1" data-via="csherland">Tweet</a></li></ul></li>')
                            }
                     }
                 });
