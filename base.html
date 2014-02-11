@@ -21,11 +21,11 @@
           js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-    
-        <!-- TWITTER TWEET BUTTON -->
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  
 
-    
+        <!-- TWITTER TWEET BUTTON -->
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
@@ -49,13 +49,13 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Post</button>
                         </div>
                     </form>
-                </div> 
-                 
+                </div>
+
             </div>
         </nav>
 
         <!-- POSTS -->
-        <div class="posts container"> 
+        <div class="posts container">
             <!-- Post view -->
             <div class="insertPost"></div>
             {% for key in keys %}
@@ -68,7 +68,7 @@
             </div>
             {% endfor %}
         </div>
-   
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -91,25 +91,30 @@
                 </div>
             </div>
         </div>
-    
+
     </body>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="static/js/jquery-2.0.3.min.js"></script> 
-    <script type="text/javascript" src="static/js/bootstrap.min.js"></script> 
-    
+    <script type="text/javascript" src="static/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+
     <!-- Make new post -->
     <script>
         $('#submitPost').click(function() {
             $('#myModal').modal('hide');
         });
-        
+
         $('#randomPost').click(function() {
             $('#myModal').modal('hide');
         });
 
     </script>
-    
+
+    <script>
+        
+    </script>
+
+
     <!-- Channel api -->
     <script src="/_ah/channel/jsapi" type="text/javascript"></script>
     <script>

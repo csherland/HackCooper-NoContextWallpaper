@@ -240,7 +240,7 @@ class Pagination(webapp2.RequestHandler):
 
     def get(self):
         last_post_key = self.request.get('key')
-        last_post = db.get(key)
+        last_post = db.get(last_post_key)
         last_post_date = last_post.created.strftime('%Y,%m,%d,%H,%M,%S')
         limit = 10
         keys_qry = db.GqlQuery('SELECT __key__ FROM Post WHERE created > DATETIME(%s) ORDER BY created DESC LIMIT %s' % (last_post_date,limit)).fetch(limit)
