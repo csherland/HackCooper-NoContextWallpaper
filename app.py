@@ -191,7 +191,7 @@ class QuoteAdderAdmin(webapp2.RequestHandler):
     def post(self):
         author = self.request.get('author')
         quote = self.request.get('quote')
-        rand_int = db.GqlQuery('SELECT * FROM Quote ORDER BY rand_int DESC LIMIT 1').fetch(1).rand_int + 1
+        rand_int = db.GqlQuery('SELECT * FROM Quote ORDER BY rand_int DESC LIMIT 1').get().rand_int + 1
 
         new_quote = Quote(author=author,quote=quote,rand_int=rand_int)
         new_quote.put()
