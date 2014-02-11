@@ -58,7 +58,7 @@
         <div class="posts container">
             <!-- Post view -->
             <div class="insertPost"></div>
-            {ul id="thePosts"}
+            <ul id="thePosts">
             {% for key in keys %}
             <li id="{{key}}" class="post">
                 <a href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1"><img class="postImg" src="/view?key={{key}}"></a><br>
@@ -68,7 +68,7 @@
                 </ul>
             </li>
             {% endfor %}
-            {/ul}
+            </ul>
         </div>
 
         <!-- Modal -->
@@ -100,6 +100,7 @@
     <script type="text/javascript" src="static/js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
 
+
     <!-- Make new post -->
     <script>
         $('#submitPost').click(function() {
@@ -112,43 +113,30 @@
 
     </script>
 
+
     <script>
-       $('#thePosts').scrollLoad({
-                url : '/pagination',
-
-                type: GET
-
-                getData : {
-                    "key" :$(this.last).attr('id')
-                },
-
-                start : function() {
-                    $('<div class="loading">Loading.....</div>').appendTo(this);
-                },
-
-                ScrollAfterHeight : 95,
-
-                onload : function(data) {
-                    console.log(data)
-                    $('.loading').remove();
-                },
-
-                continueWhile : function(resp) {
-                    return true;
-                }
-            });
+        $(window).scroll(function(){
+            if($(window).scrollTop() == $(document).height() - $(window).height()) {
+                $.ajax({
+                    TYPE: "GET",
+                    url: "pagination",
+                    data: {
+                        "key": $('#thePosts').last().attr('id')
+                    },
+                    success: function(data) {
+                        //add in the new posts
+                        for key in data {
+                            $('#thePosts').append("<div class=\"post\"><img class=\"postImg\" src=\"/view?key="+key+"\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key="+key+"&share=1\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key="+key+"&share=1\" data-via=\"csherland\">Tweet</a></li></ul></div>");
+                        }
+                    }
+                    fail: function() {
+                        console.log("request for next page failed");
+                    }
+                });
+            }
+        });
     </script>
 
-
-    <!-- Channel api -->
-    <script src="/_ah/channel/jsapi" type="text/javascript"></script>
-    <script>
-        channel = new goog.appengine.Channel('{{ token }}');
-        socket = channel.open();
-        socket.onmessage = function(evt) {
-            $('.insertPost').after("<div class=\"post\"><img class=\"postImg\" src=\"/view?key="+evt.data+"\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key="+evt.data+"&share=1\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key="+evt.data+"&share=1\" data-via=\"csherland\">Tweet</a></li></ul></div>");
-        };
-    </script>
 
 </html>
 {% endautoescape %}
