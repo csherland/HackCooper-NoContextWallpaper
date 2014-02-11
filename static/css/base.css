@@ -2,6 +2,11 @@
  * base.css
  */
 
+@media print,
+       (-webkit-min-device-pixel-ratio: 1.5),
+       (min-resolution: 144dpi) {
+}
+
 body {
     min-width: 960px;
     background-color: #191917;
