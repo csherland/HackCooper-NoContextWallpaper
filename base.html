@@ -65,11 +65,11 @@
           js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151867541574579";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
-    
-        <!-- TWITTER TWEET BUTTON -->
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>  
 
-    
+        <!-- TWITTER TWEET BUTTON -->
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
         <!-- NAVBAR -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 
@@ -93,26 +93,28 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">New Post</button>
                         </div>
                     </form>
-                </div> 
-                 
+                </div>
+
             </div>
         </nav>
 
         <!-- POSTS -->
-        <div class="posts container"> 
+        <div class="posts container">
             <!-- Post view -->
             <div class="insertPost"></div>
+            <ul id="thePosts">
             {% for key in keys %}
-            <div class="post">
+            <li id="{{key}}" class="post">
                 <a href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1"><img class="postImg" src="/view?key={{key}}"></a><br>
                 <ul>
                     <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
                     <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-via="csherland">Tweet</a></li>
                 </ul>
-            </div>
+            </li>
             {% endfor %}
+            </ul>
         </div>
-   
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -135,34 +137,47 @@
                 </div>
             </div>
         </div>
-    
+
     </body>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="static/js/jquery-2.0.3.min.js"></script> 
-    <script type="text/javascript" src="static/js/bootstrap.min.js"></script> 
-    
+    <script type="text/javascript" src="static/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+
+
     <!-- Make new post -->
     <script>
         $('#submitPost').click(function() {
             $('#myModal').modal('hide');
         });
-        
+
         $('#randomPost').click(function() {
             $('#myModal').modal('hide');
         });
 
     </script>
-    
-    <!-- Channel api -->
-    <script src="/_ah/channel/jsapi" type="text/javascript"></script>
+
+
     <script>
-        channel = new goog.appengine.Channel('{{ token }}');
-        socket = channel.open();
-        socket.onmessage = function(evt) {
-            $('.insertPost').after("<div class=\"post\"><img class=\"postImg\" src=\"/view?key="+evt.data+"\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key="+evt.data+"&share=1\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key="+evt.data+"&share=1\" data-via=\"csherland\">Tweet</a></li></ul></div>");
-        };
+        $(window).scroll(function(){
+            if($(window).scrollTop() == $(document).height() - $(window).height()) {
+                $.ajax({
+                    TYPE: "GET",
+                    url: "pagination",
+                    data: {
+                        "key": $('.post').get(-1).id
+                    },
+                    success: function(data) {
+                        var data = $.parseJSON(data);
+                        for (var x = 0; x < data.length; x++) {
+                           $('#thePosts').append("<li id=\""+data[x]+"\" class=\"post\"><img class=\"postImg\" src=\"/view?key="+data[x]+"\"><br><ul><li class=\"fb-like social-buttons\" data-href=\"https://hackcooper-nocontext.appspot.com/view?key="+data[x]+"&share=1\" data-layout=\"button_count\" data-action=\"like\" data-show-faces=\"true\" data-share=\"false\"></li><li class=\"tweet-link social-buttons\"><a href=\"https://twitter.com/share\" class=\"twitter-share-button\" data-url=\"http://hackcooper-nocontext.appspot.com/view?key="+data[x]+"&share=1\" data-via=\"csherland\">Tweet</a></li></ul></li>");
+                        }
+                    }
+                });
+            }
+        });
     </script>
+
 
 </html>
 {% endautoescape %}
