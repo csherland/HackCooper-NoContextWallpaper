@@ -25,7 +25,7 @@ $(window).scroll(function(){
             success: function(data) {
                 var data = $.parseJSON(data);
                 for (var x = 0; x < data.length; x++) {
-                    $('#thePosts').append('<li id="'+data[x]+'" class="post"><a href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1"><img class="postImg" src="/view?key='+data[x]+'"></a><br><ul><li class="fb-share-button" data-href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1" data-type="button_count"></li><li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1" data-via="csherland">Tweet</a></li></ul></li>')
+                    $('#thePosts').append('<li id="'+data[x]+'" class="post"><a href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1"><img class="postImg" src="/view?key='+data[x]+'"></a><br><ul><li class="fb-share-button" data-href="https://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1" data-type="button_count"></li><li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key='+data[x]+'&share=1">Tweet</a></li></ul></li>')
                    }
             }
         });
