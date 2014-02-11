@@ -243,7 +243,7 @@ class Pagination(webapp2.RequestHandler):
         last_post = db.get(last_post_key)
         last_post_date = last_post.created.strftime('%Y,%m,%d,%H,%M,%S')
         limit = 10
-        keys_qry = db.GqlQuery('SELECT * FROM Post WHERE created > DATETIME(%s) ORDER BY created DESC LIMIT %s' % (last_post_date,limit)).fetch(limit)
+        keys_qry = db.GqlQuery('SELECT * FROM Post WHERE created < DATETIME(%s) ORDER BY created DESC LIMIT %s' % (last_post_date,limit)).fetch(limit)
 
         to_ret = []
         for i in keys_qry:
