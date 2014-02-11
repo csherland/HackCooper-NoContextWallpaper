@@ -7,6 +7,7 @@ import os
 import datetime
 import urllib2
 import urllib
+import random
 
 from google.appengine.api import channel
 from google.appengine.ext import db
@@ -18,7 +19,6 @@ from google.appengine.api import images
 
 from nocontext.addText import addText
 
-import random
 logging.getLogger().setLevel(logging.DEBUG)
 import sys
 for attr in ('stdin', 'stdout', 'stderr'):
@@ -217,18 +217,16 @@ class ViewHandler(webapp2.RequestHandler):
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
-        limit = 4
+        limit = 10
         keys_qry = db.GqlQuery('SELECT __key__ FROM Post ORDER BY created DESC LIMIT %s' % (limit)).fetch(limit)
 
         datHash = 'thisIsOurHashAndShit'
-        current_user = users.get_current_user()
-        if current_user:
-            if current_user.email() == 'ethan.lusterman@gmail.com':
-                token = channel.create_channel(DAT_HASH)
-            else:
-                token = ''
-        else:
-            token = ''
+        #try:
+        #
+        #    token = channel.create_channel(DAT_HASH)
+        #except:
+        #    token = ''
+        token =''
 
         template_values = {
                 "token": token,
@@ -238,6 +236,19 @@ class MainPage(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('base.html')
         self.response.write(template.render(template_values))
 
+class Pagination(webapp2.RequestHandler):
+
+    def get(self):
+        last_post_key = self.request.get('key')
+        last_post = db.get(key)
+        last_post_date = last_post.created.strftime('%Y,%m,%d,%H,%M,%S')
+        limit = 10
+        keys_qry = db.GqlQuery('SELECT __key__ FROM Post WHERE created > DATETIME(%s) ORDER BY created DESC LIMIT %s' % (last_post_date,limit)).fetch(limit)
+
+        to_return = {'keys':keys_qry}
+        to_return = json.dumps(to_return)
+
+        self.response.out.write(to_return)
 
 
 application = webapp2.WSGIApplication([
@@ -248,4 +259,5 @@ application = webapp2.WSGIApplication([
     ('/post', UserPost),
     ('/view', ViewHandler),
     ('/random', RandomPost),
+    ('/pagination', Pagination),
 ], debug=True)
