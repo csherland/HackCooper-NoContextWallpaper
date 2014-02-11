@@ -11,71 +11,67 @@ from random import randint
 import textwrap
 
 def addText(text, author, imgurl):
-    lines = textwrap.wrap(text, width = 40)
+	lines = textwrap.wrap(text, width = 40)
 
-    # Get fonts and pick a random one
-    ttffiles = [f for f in listdir('fonts') if isfile(join('fonts',f))]
-    randfile = randint(0,len(ttffiles)-1)
+	# Get fonts and pick a random one
+	ttffiles = [f for f in listdir('fonts') if isfile(join('fonts',f))]
+	randfile = randint(0,len(ttffiles)-1)
 
-    # Get an image
-    imgFile = cStringIO.StringIO(urllib.urlopen(imgurl).read())
+	# Get an image
+	imgFile = cStringIO.StringIO(urllib.urlopen(imgurl).read())
 
-    try:
-        img = Image.open(imgFile)
-    except IOError as e:
-        imgFile = cStringIO.StringIO(urllib.urlopen('http://i.imgur.com/jlOrk.jpg'))
-        img = Image.open(imgFile)
+	img = Image.open(imgFile)
 
-    # Draw image and add the text
-    draw = ImageDraw.Draw(img)
-    fonturlf='fonts/' + ttffiles[randfile]
-    fontsize = 150
-    font = ImageFont.truetype(fonturlf, fontsize)
+	# Draw image and add the text
+	draw = ImageDraw.Draw(img)
+	fonturlf='fonts/' + ttffiles[randfile]
+	fontsize = 150
+	font = ImageFont.truetype(fonturlf, fontsize)
 
-    x=0
-    y=0
-    i=0
-    width0=0
-    author = '-' + author
-    [widthauthor, height] = font.getsize(author)
-    for line in lines:
-        [width0,height0]=font.getsize(line)
-        [imgwidth,imgheight] = img.size
+	x=0
+	y=0
+	i=0
+	width0=0
+	author = '-' + author
+	[widthauthor, height] = font.getsize(author)
+	for line in lines:
+		[width0,height0]=font.getsize(line)
+		[imgwidth,imgheight] = img.size
 
-        if (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
-            while (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
-                fontsize = fontsize - 3
-                font = ImageFont.truetype(fonturlf, fontsize)
-                [width0,height0]=font.getsize(line)
-                [widthauthor, height] = font.getsize(author)
-            if i==0:
-                x=0
-                y=randint(0,imgheight-(height0*(len(lines)+1)))
-        else:
-            if i==0:
-                x=randint(0,imgwidth-width0)
-                y=randint(0,imgheight-(height0*(len(lines)+1)))
+		if (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
+			while (width0 > imgwidth) or (height0*len(lines)+1 > imgheight) or (widthauthor > imgwidth):
+				fontsize = fontsize - 3
+				font = ImageFont.truetype(fonturlf, fontsize)
+				[width0,height0]=font.getsize(line)
+				[widthauthor, height] = font.getsize(author)
+				if i==0:
+					x=0
+					y=randint(0,imgheight-(height0*(len(lines)+1)))
+				else:
+					if i==0:
+						x=randint(0,imgwidth-width0)
+						y=randint(0,imgheight-(height0*(len(lines)+1)))
 
-        [width, height] = font.getsize(line)
-        draw.text((x-2, y-2), line, (0,0,0), font=font)
-        draw.text((x+2, y-2), line, (0,0,0), font=font)
-        draw.text((x-2, y+2), line, (0,0,0), font=font)
-        draw.text((x+2, y+2), line, (0,0,0), font=font)
-        draw.text((x, y), line, (255,255,255), font=font)
-        y += height0
-        i += 1
+		[width, height] = font.getsize(line)
+		draw.text((x-2, y-2), line, (0,0,0), font=font)
+		draw.text((x+2, y-2), line, (0,0,0), font=font)
+		draw.text((x-2, y+2), line, (0,0,0), font=font)
+		draw.text((x+2, y+2), line, (0,0,0), font=font)
+		draw.text((x, y), line, (255,255,255), font=font)
+		y += height0
+		i += 1
 
-    [widthauthor, height] = font.getsize(author)
-    x = imgwidth-widthauthor
-    draw.text((x-2, y-2), author, (0,0,0), font=font)
-    draw.text((x+2, y-2), author, (0,0,0), font=font)
-    draw.text((x-2, y+2), author, (0,0,0), font=font)
-    draw.text((x+2, y+2), author, (0,0,0), font=font)
-    draw.text((x,y), author, (255,255,255), font=font)
+	[widthauthor, height] = font.getsize(author)
+	x = imgwidth-widthauthor
+	draw.text((x-2, y-2), author, (0,0,0), font=font)
+	draw.text((x+2, y-2), author, (0,0,0), font=font)
+	draw.text((x-2, y+2), author, (0,0,0), font=font)
+	draw.text((x+2, y+2), author, (0,0,0), font=font)
+	draw.text((x,y), author, (255,255,255), font=font)
 
-    output = cStringIO.StringIO()
-    img.save(output, "JPEG", option='optimize')
-    img = output.getvalue()
-    output.close()
+	output = cStringIO.StringIO()
+	img.save(output, "JPEG", option='optimize')
+	img = output.getvalue()
+	output.close()
 
-    return img
+	return img
