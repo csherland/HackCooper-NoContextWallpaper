@@ -247,7 +247,7 @@ class Pagination(webapp2.RequestHandler):
 
         to_ret = []
         for i in keys_qry:
-            to_ret.append({"key":str(i.key())})
+            to_ret.append(str(i.key()))
 
 
 
