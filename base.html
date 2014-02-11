@@ -58,15 +58,17 @@
         <div class="posts container">
             <!-- Post view -->
             <div class="insertPost"></div>
+            {ul id="thePosts"}
             {% for key in keys %}
-            <div class="post">
+            <li id="{{key}}" class="post">
                 <a href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1"><img class="postImg" src="/view?key={{key}}"></a><br>
                 <ul>
                     <li class="fb-like social-buttons" data-href="https://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></li>
                     <li class="tweet-link social-buttons"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://hackcooper-nocontext.appspot.com/view?key={{key}}&share=1" data-via="csherland">Tweet</a></li>
                 </ul>
-            </div>
+            </li>
             {% endfor %}
+            {/ul}
         </div>
 
         <!-- Modal -->
@@ -111,7 +113,30 @@
     </script>
 
     <script>
-        
+       $('#thePosts').scrollLoad({
+                url : '/pagination',
+
+                type: GET
+
+                getData : {
+                    "key" :$(this.last).attr('id')
+                },
+
+                start : function() {
+                    $('<div class="loading">Loading.....</div>').appendTo(this);
+                },
+
+                ScrollAfterHeight : 95,
+
+                onload : function(data) {
+                    console.log(data)
+                    $('.loading').remove();
+                },
+
+                continueWhile : function(resp) {
+                    return true;
+                }
+            });
     </script>
 
 
