@@ -243,12 +243,18 @@ class Pagination(webapp2.RequestHandler):
         last_post = db.get(last_post_key)
         last_post_date = last_post.created.strftime('%Y,%m,%d,%H,%M,%S')
         limit = 10
-        keys_qry = db.GqlQuery('SELECT __key__ FROM Post WHERE created > DATETIME(%s) ORDER BY created DESC LIMIT %s' % (last_post_date,limit)).fetch(limit)
+        keys_qry = db.GqlQuery('SELECT * FROM Post WHERE created < DATETIME(%s) ORDER BY created DESC LIMIT %s' % (last_post_date,limit)).fetch(limit)
 
-        to_return = {'keys':keys_qry}
-        to_return = json.dumps(to_return)
+        to_ret = []
+        for i in keys_qry:
+            to_ret.append({"key":str(i.key())})
 
-        self.response.out.write(to_return)
+
+
+        #to_return = {'keys':keys_qry}
+        #to_return = json.dumps(to_return)
+
+        self.response.out.write(json.dumps(to_ret))
 
 
 application = webapp2.WSGIApplication([
