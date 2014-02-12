@@ -99,6 +99,10 @@ body {
     width:80px!important;
 }
 
+#thePosts {
+    list-style-type: none;
+}
+
 .social-buttons {
     float:right !important;
     display:inline-block !important;
