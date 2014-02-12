@@ -62,6 +62,7 @@ function addText(quote,author,imgurl) {
                     context.fillText(quote[i],1,y+1,798);
                     y=y+60;
                 }
+                author = '-' + author;
                 var aut_width = context.measureText(author).width;
                 var aut_right = 800 - aut_width -1;
                 context.fillStyle='black';
@@ -72,7 +73,7 @@ function addText(quote,author,imgurl) {
                 context.fillStyle='white';
                 context.fillText(author,aut_right+1,y+1,798);
             }
-            imageObj.src = "imgurl"; 
+            imageObj.src = imgurl; 
         }
     });
 }
